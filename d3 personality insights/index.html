@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="distrochart.css">
+    <!--        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
+    <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+    <!--    <script src="https://d3js.org/d3.v5.js"></script>-->
+</head>
+
+<body>
+    <div class="chart-wrapper" id="chart-distro1"></div>
+
+    <!--Sorry about all the inline JS. It is a quick way to show what options are available-->
+    <div class="chart-options">
+        <p>Show: </p>
+        <button onclick="chart1.violinPlots.hide();chart1.densityPlots.hide();chart1.boxPlots.show({reset:true});">Box Plot</button>
+        <button onclick="chart1.densityPlots.hide();chart1.boxPlots.show({reset:true, showWhiskers:false,showOutliers:false,boxHeight:15,lineHeight:15});chart1.violinPlots.show({reset:true,clamp:0});">Violin Plot</button>
+        <button onclick="chart1.violinPlots.hide();chart1.boxPlots.hide();chart1.densityPlots.show({reset:true,clamp:0})">Density Plot</button>
+    </div>
+
+
+    <script src="distrochart.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var chart1;
+        d3.json('data.json').then(function(data) {
+
+            data.forEach(function(d) {
+                d.value = +d.value;
+            });
+            
+            chart1 = makeDistroChart({
+                data: data,
+                xName: 'date',
+                yName: 'value',
+                axisLabels: {
+                    xAxis: null,
+                    yAxis: null
+                },
+                selector: "#chart-distro1",
+                chartSize: {
+                    height: 520,  //460
+                    width: 960  //960
+                },
+                constrainExtremes: true
+            });
+            chart1.renderBoxPlot();
+            chart1.renderViolinPlot({
+                showViolinPlot: false
+            });
+            chart1.renderDensityPlot({
+                showDensityPlot: false
+            });
+
+        });
+    </script>
+</body>
+</html>

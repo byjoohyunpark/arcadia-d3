@@ -1,0 +1,74 @@
+/*CSS FOR LINE CHART*/
+.axis path, .axis line {
+    fill: none;
+    shape-rendering: crispedges;
+    stroke: #000000;
+}
+/**Hide Axes**/
+.y.axis path, .x.axis path, .x.axis line, .y.axis line {
+  display: none;
+}
+.grid .tick {
+    stroke: grey;
+    opacity: 0.5 !important;
+}
+.tooltip {
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    color: #000;
+    font: 12px sans-serif;
+    height: 100px;
+    padding: 2px;
+    pointer-events: none;
+    position: absolute;
+    text-align: center;
+    width: 100px;
+}
+.jtvd3-legend-grp{
+    display: inline-block;
+}
+.legend{
+    cursor: pointer;
+}
+
+div.jtvd3-tooltip {   
+    position: absolute;           
+    text-align: center;           
+    width: 136px;            
+    font: 12px sans-serif;          
+    border: 0px;      
+    border-radius: 4px;           
+    pointer-events: none;
+    /*border: 1px solid blue;*/ 
+    background:white;	
+    height: 100px;
+}
+
+div.jtvd3-tooltip > h3 {
+    background: white;
+    padding:4px;
+    font-size: 14px;
+}
+
+/******Single tooltip design*/
+.jtvd3-tlp-wrapper{
+    position:relative;
+    padding: 10px;
+}
+.jtvd3-tlp-float {
+    margin:0; padding:0;
+}
+.jtvd3-tlp-left {
+   position:absolute;
+}
+.jtvd3-tlp-right {
+    float:right; 
+}
+.tooltip-heading{
+    padding: 10px 10px 0px 10px;
+    text-align: left;
+}
+.jtvd3-iiner-tip{
+    padding-bottom: 12px;
+}

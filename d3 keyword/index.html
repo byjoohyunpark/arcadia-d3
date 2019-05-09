@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<svg width="960" height="500"></svg>
+
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+
+<script>
+    var data = [{
+            key: "1",
+            values: [{
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                }
+            ]
+        },
+        {
+            key: "2",
+            values: [{
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                },
+                {
+                    "range": 1 - 2 * Math.random(),
+                    "score": Math.random() * 6
+                }
+            ]
+        }
+    ];
+    //    console.log(data);
+
+</script>
+
+<script>
+    function makeAreaChart() {
+
+        //        const chart = {};
+
+
+        margin = {
+            top: 20,
+            right: 20,
+            bottom: 30,
+            left: 50
+        };
+
+
+        var svg = d3.select("svg");
+
+        width = +svg.attr("width") - margin.left - margin.right;
+        height = +svg.attr("height") - margin.top - margin.bottom;
+        g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        //        var parseDate = d3.timeParse("%Y/%m/%d %H:%M");
+
+        var color = d3.scaleOrdinal()
+//            .domain(["PVkW", "TBLkW"])
+            .range(["rgba(249, 208, 87, 0.7)", "rgba(54, 174, 175, 0.65)"]);
+
+        var x = d3.scaleTime().range([0, width]),
+            y = d3.scaleLinear().range([height, 0])
+            z = color;
+
+        var area = d3.area()
+            .curve(d3.curveMonotoneX)
+            .x(function(d) {
+                return x(d.range);
+            })
+            .y0(y(0))
+            .y1(function(d) {
+                return y(d.score);
+            });
+
+        //        d3.csv("kW_zoomed.csv", type, function(error, data) {
+        //            if (error) throw error;
+
+        //            var sources = data.columns.slice(1).map(function(id) {
+        //                return {
+        //                    id: id,
+        //                    values: data.map(function(d) {
+        //                        return {
+        //                            date: d.date,
+        //                            kW: d[id]
+        //                        };
+        //                    })
+        //                };
+        //            });
+
+        
+        
+        data.forEach(function(kv) {
+            kv.values.forEach(function(d) {
+                d.range = +d.range
+                d.score = +d.score
+            })
+        })
+
+        console.log(data);
+
+
+        const maxHigh = d3.max(data, function(kv) {
+            return d3.max(kv.values, function(d) {
+                return d.score
+            })
+        })
+
+
+        x.domain([-1, 1]);
+        y.domain([0, maxHigh]);
+
+
+        g.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        g.append("g")
+            .attr("class", "axis axis--y")
+            .call(d3.axisLeft(y))
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
+            .attr("fill", "#000")
+            .text("Power, kW");
+
+        var source = g.selectAll(".area")
+            .data(data)
+            .enter().append("g")
+            .attr("class", function(d) {
+                return `area ${d.key}`;
+            })
+
+
+        source.append("path")
+            .attr("d", function(d) {
+                console.log(area(d.values));
+                return area(d.values);
+            })
+            .style("fill", function(d) {
+                return z(d.id);
+            });
+
+
+    }
+
+
+
+    makeAreaChart();
+
+</script>
+</body>
+
+</html>

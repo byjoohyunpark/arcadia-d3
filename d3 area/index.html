@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JTV Area Range Line chart in d3</title>
+        <meta charset="utf-8">
+        <link href="css/jtv.arearange.line.css" rel="stylesheet">
+       <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+        <script src="js/area.js"></script>
+    </head>
+    <body>
+        <div id="errorchart" style="width: 100%; height: 500px;"></div>
+        <script>
+//            var retdata = [
+//                {
+//                    key: "1",
+//                    values: [
+//                        {"id": 0, "low": -Math.random(), "high": Math.random(), "avg": 4},
+//                        {"id": 1, "low": -Math.random(), "high": Math.random(), "avg": 7},
+//                        {"id": 2, "low": -Math.random(), "high": Math.random(), "avg": 5},
+//                        {"id": 3, "low": -Math.random(), "high": Math.random(), "avg": 7},
+//                        {"id": 4, "low": -Math.random(), "high": Math.random(), "avg": 6},
+//                        {"id": 5, "low": -Math.random(), "high": Math.random(), "avg": 8},
+//                        {"id": 6, "low": -Math.random(), "high": Math.random(), "avg": 5},
+//                        {"id": 7, "low": -Math.random(), "high": Math.random(), "avg": 9},
+//                        {"id": 8, "low": -Math.random(), "high": Math.random(), "avg": 4},
+//                        {"id": 9, "low": -Math.random(), "high": Math.random(), "avg": 4}                        
+//                    ]
+//                },
+//                {
+//                    key: "2",
+//                    values: [
+//                        {"id": 0, "low": -Math.random(), "high": Math.random(), "avg": 4},
+//                        {"id": 1, "low": -Math.random(), "high": Math.random(), "avg": 7},
+//                        {"id": 2, "low": -Math.random(), "high": Math.random(), "avg": 5},
+//                        {"id": 3, "low": -Math.random(), "high": Math.random(), "avg": 7},
+//                        {"id": 4, "low": -Math.random(), "high": Math.random(), "avg": 6},
+//                        {"id": 5, "low": -Math.random(), "high": Math.random(), "avg": 8},
+//                        {"id": 6, "low": -Math.random(), "high": Math.random(), "avg": 5},
+//                        {"id": 7, "low": -Math.random(), "high": Math.random(), "avg": 9},
+//                        {"id": 8, "low": -Math.random(), "high": Math.random(), "avg": 4},
+//                        {"id": 9, "low": -Math.random(), "high": Math.random(), "avg": 4}                        
+//                    ]
+//                }
+//            ];           
+            
+            
+            //Providing chart options
+//            var options = {
+//                axes : {
+//                    xLabel : "Id", // X Label Text
+//                    yLabel : "Count", // Y Label Text
+//                    yAxisLabelPos : "outer", //'inner' will set the Y-axis label position in inner side, (e.g. inner or outer)
+//                    xScale : "datetime" //For date time in X-axis, provide 'datetime' (e.g. datetime, str)
+//                },
+//                lineOpt : {
+//                    strokeWidth : 1,
+//                    areaOpacity : 0.5,
+////                    interpolate : "cardinal" // Different shape of the line and area(i.e linear, cardinal, monotone etc.)
+//                },
+//                legend : {
+//                    enable : true,
+//                    legendType : 'circle' // Different shape of the legends(i.e. circle, rectangle)
+//                },
+//                background : {
+//                    bgColor : "#FFF",
+//                    gridlineWidth : 0.1,
+//                    noofGrids : 10
+//                }
+//            };
+
+            chart.render(retdata, options); 
+            
+        </script>
+    </body>
+</html>

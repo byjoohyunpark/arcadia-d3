@@ -1,0 +1,214 @@
+<!-- Code from d3-graph-gallery.com -->
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
+<!-- Create a div where the graph will take place -->
+<div class="syndicated-chart"></div>
+
+
+<script>
+    var data = [{
+        "value": 720,
+        "vertical": 40,
+        "baseline": 30
+    }];
+
+    var margin = {
+        top: 20,
+        right: 40,
+        bottom: 30,
+        left: 100,
+        betweenH: 40,
+        betweenV: 5
+    };
+
+    //    var width = 700;
+    //    var height = 100;
+
+    var chartWidth = 500;
+    var chartHeight = 20 //height - margin.top - margin.bottom;
+
+    var secondaryWidth = 150;
+
+    var width = chartWidth + secondaryWidth + margin.betweenH + margin.right + margin.left;
+    var height = chartHeight * 2 + margin.betweenV + margin.top + margin.bottom;
+
+
+//    var yScale = d3.scaleBand()
+//        .range([chartHeight, 0])
+
+    var xScale = d3.scaleLinear()
+        .range([0, chartWidth])
+        .domain([0, 1000]);
+    
+    var xScale2 = d3.scaleLinear()
+        .range([0, secondaryWidth])
+        .domain([0, 100]);    
+
+    var svg = d3.select(".syndicated-chart").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+    var backgroundBar = svg.selectAll(null)
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("fill", "lightgray")
+        .attr("y", 0)
+        .attr("height", chartHeight)
+        .attr("width", function(d) {
+            return xScale(1000);
+        });
+
+    var bar = svg.selectAll(null)
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("y", 0)
+        .attr("height", chartHeight)
+        .transition()
+        .duration(1000)
+        .delay(function(d, i) {
+            return i * 100
+        })
+        .attr("width", function(d) {
+            return xScale(d.value);
+        });
+
+    var label = svg.selectAll(null)
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("y", margin.top)
+        .attr("x", -20)
+        //        .attr("alignment-baseline", "central")
+        .attr("font-size", "24px")
+        .attr("font-family", "sans-serif")
+        .attr("text-anchor", "end")
+        .text(function(d) {
+            return d.value
+        });
+
+    var line = svg
+        .append('g')
+        .append('line')
+        .attr('class', 'bottom-line')
+        .style('stroke-width', 3)
+        .attr('stroke', 'gray')
+        .attr('x1', 0)
+        .attr('x2', chartWidth)
+        .attr('y1', chartHeight*2 + margin.betweenV)
+        .attr('y2', chartHeight*2 + margin.betweenV)
+
+    var lineLeft = svg
+        .append('g')
+        .append('line')
+        .attr('class', 'bottom-line-left')
+        .style('stroke-width', 3)
+        .attr('stroke', 'gray')
+        .attr('x1', 0)
+        .attr('x2', 0)
+        .attr('y1', chartHeight*2 + margin.betweenV -5)
+        .attr('y2', chartHeight*2 + margin.betweenV +5)
+
+    var min = svg
+        .append("text")
+        .attr('class', 'min')
+        .attr("y", chartHeight*2 + margin.betweenV + 20)
+        .attr("x", 0)
+        .attr("font-size", "16px")
+        .attr("font-family", "sans-serif")
+        .attr("text-anchor", "start")
+        .attr("fill", "gray")
+        .text("0");
+
+    var lineRight = svg
+        .append('g')
+        .append('line')
+        .attr('class', 'bottom-line-left')
+        .style('stroke-width', 3)
+        .attr('stroke', 'gray')
+        .attr('x1', chartWidth)
+        .attr('x2', chartWidth)
+        .attr('y1', chartHeight*2 + margin.betweenV -5)
+        .attr('y2', chartHeight*2 + margin.betweenV +5)
+
+    var max = svg
+        .append("text")
+        .attr('class', 'max')
+        .attr("y", chartHeight*2 + margin.betweenV + 20)
+        .attr("x", chartWidth)
+        .attr("font-size", "16px")
+        .attr("font-family", "sans-serif")
+        .attr("text-anchor", "end")
+        .attr("fill", "gray")
+        .text("1000");
+
+
+    var verticalBackgroundBar = svg.selectAll(null)
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("fill", "lightgray")
+        .attr("x", chartWidth + margin.betweenH)
+        .attr("y", 0)
+        .attr("height", chartHeight)
+        .attr("width", function(d) {
+            return xScale2(100);
+        });
+
+    var verticalBar = svg.selectAll(null)
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", chartWidth + margin.betweenH)    
+        .attr("y", 0)
+        .attr("height", chartHeight)
+        .transition()
+        .duration(1000)
+        .delay(function(d, i) {
+            return i * 100
+        })
+        .attr("width", function(d) {
+            return xScale2(d.vertical);
+        });
+    
+    
+     var baselineBackgroundBar = svg.selectAll(null)
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("fill", "lightgray")
+        .attr("x", chartWidth + margin.betweenH)
+        .attr("y", chartHeight + margin.betweenV)
+        .attr("height", chartHeight)
+        .attr("width", function(d) {
+            return xScale2(100);
+        });
+
+    var baselineBar = svg.selectAll(null)
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", chartWidth + margin.betweenH)    
+        .attr("y", chartHeight + margin.betweenV)
+        .attr("height", chartHeight)
+        .transition()
+        .duration(1000)
+        .delay(function(d, i) {
+            return i * 100
+        })
+        .attr("width", function(d) {
+            return xScale2(d.baseline);
+        });
+
+</script>

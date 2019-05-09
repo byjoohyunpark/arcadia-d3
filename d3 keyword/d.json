@@ -1,0 +1,14 @@
+[
+  {
+    "range": 1 - 2*Math.random(),
+    "score": Math.random()*6
+  },
+  {
+    "date": 2000,
+    "value": 160.5328879
+  },
+  {
+    "date": 2002,
+    "value": 292.3321976
+  }
+]
