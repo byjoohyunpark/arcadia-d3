@@ -1,2 +1,2 @@
 # arcadia-d3
-Different type is in each folder.
+Different chart types are in each folder.
